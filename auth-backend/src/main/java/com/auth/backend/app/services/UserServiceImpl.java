@@ -50,21 +50,32 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto updateUser(UserDto userDto, String email) {
-        return null;
+    public UserDto updateUser(UserDto userDto, String userid) {
+        UUID uuid = UserHelper.parseUUID(userid);
+        User existingUser = userRepository
+                .findById(uuid)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with given Id"));
+        if (userDto.getName() != null ) existingUser.setName(userDto.getName());
+        if (userDto.getImage() != null ) existingUser.setImage(userDto.getImage());
+        if (userDto.getProvider() != null ) existingUser.setProvider(userDto.getProvider());
+        if (userDto.getPassword() != null ) existingUser.setPassword(userDto.getPassword());
+        existingUser.setEnable(userDto.isEnable());
+        User updatedUser = userRepository.save(existingUser);
+        return userMapper.mapUserToUserDto(updatedUser);
     }
 
     @Override
     public void deleteUser(String userId) {
-        UUID parseUUID = UserHelper.parseUUID(userId);
-        User user = userRepository.findById(parseUUID).orElseThrow(() -> new ResourceNotFoundException("User not found with given user Id"));
+        UUID uuid = UserHelper.parseUUID(userId);
+        User user = userRepository.findById(uuid).orElseThrow(() -> new ResourceNotFoundException("User not found with given user Id"));
         userRepository.delete(user);
 
     }
 
     @Override
     public UserDto getUserById(String userId) {
-        User user = userRepository.findById(UserHelper.parseUUID())
+        User user = userRepository.findById(UserHelper.parseUUID(userId)).orElseThrow(() -> new ResourceNotFoundException("User not found with given user Id"));
+        return userMapper.mapUserToUserDto(user);
     }
 
     @Override

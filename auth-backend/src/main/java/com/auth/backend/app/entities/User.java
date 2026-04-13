@@ -55,5 +55,10 @@ public class User {
         updatedAt = now;
     }
 
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+    }
+
 
 }
