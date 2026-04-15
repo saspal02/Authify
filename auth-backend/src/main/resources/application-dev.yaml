@@ -26,3 +26,19 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
+  logging:
+    level:
+      org:
+        springframework.security: DEBUG
+
+  security:
+    jwt:
+      secret: ${JWT_SECRET:mysecretkey}
+      issuer: ${JWT_ISSUER:auth-backend}
+      access-ttl: ${JWT_ACCESS_TTL:3600000} # 1 hour
+      refresh-ttl: ${JWT_REFRESH_TTL:86400000} # 24 hours
+      refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
+      cookie-secure: ${JWT_COOKIE_SECURE:true}
+      cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
+      cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
