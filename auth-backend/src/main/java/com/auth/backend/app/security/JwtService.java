@@ -4,6 +4,8 @@ import com.auth.backend.app.entities.Role;
 import com.auth.backend.app.entities.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
+@Getter
+@Setter
 public class JwtService {
 
     private final SecretKey key;
@@ -23,9 +27,9 @@ public class JwtService {
     private final long refreshTtlSeconds;
     private final String issuer;
 
-    public JwtService(@Value("{security.jwt.secret}") String secret,
-                      @Value("${security.jwt.access-ttl-seconds}") long accessTtlSeconds,
-                      @Value("$security.jwt.refresh-ttl-seconds}") long refreshTtlSeconds,
+    public JwtService(@Value("${security.jwt.secret}") String secret,
+                      @Value("${security.jwt.access-ttl}") long accessTtlSeconds,
+                      @Value("${security.jwt.refresh-ttl}") long refreshTtlSeconds,
                       @Value("${security.jwt.issuer}") String issuer) {
         if (secret == null || secret.length() < 64) {
             throw new IllegalArgumentException("Invalid JWT secret");

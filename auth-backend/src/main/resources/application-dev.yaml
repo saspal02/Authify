@@ -1,23 +1,11 @@
-#development version of configurations
 server:
   port: 8081
 
-#  database connections
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/auth_app
     username: root
     password: password
-
-  #    hikari:
-  #      pool-name: HikariCP
-  #      maximum-pool-size: 5
-  #      connection-timeout: 10000
-  #      idle-timeout: 600000
-  #      max-lifetime: 1800000
-  #      validation-timeout: 1800000
-  #      leak-detection-threshold: 0
-  #      initialization-fail-timeout: -1
 
   jpa:
     hibernate:
@@ -32,13 +20,14 @@ spring:
       org:
         springframework.security: DEBUG
 
-  security:
-    jwt:
-      secret: ${JWT_SECRET:mysecretkey}
-      issuer: ${JWT_ISSUER:auth-backend}
-      access-ttl: ${JWT_ACCESS_TTL:3600000} # 1 hour
-      refresh-ttl: ${JWT_REFRESH_TTL:86400000} # 24 hours
-      refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
-      cookie-secure: ${JWT_COOKIE_SECURE:true}
-      cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
-      cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    issuer: ${JWT_ISSUER:auth-backend}
+    access-ttl: ${JWT_ACCESS_TTL:3600}
+    refresh-ttl: ${JWT_REFRESH_TTL:86400}
+    refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
+    cookie-secure: ${JWT_COOKIE_SECURE:true}
+    cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
+    cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
