@@ -45,7 +45,6 @@ public class SecurityConfig {
                             String message = authException.getMessage();
                             Map<String, String> errorMap = Map.of(
                                     "message", message,
-                                    "status", String.valueOf(401),
                                     "statusCode", Integer.toString(401)
                             );
                             var objectMapper = new ObjectMapper();

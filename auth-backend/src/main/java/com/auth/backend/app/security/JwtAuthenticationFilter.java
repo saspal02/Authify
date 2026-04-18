@@ -62,7 +62,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String userId = payload.getSubject();
                 UUID userUuid = UserHelper.parseUUID(userId);
 
-                // Fetch user from database
+                // Fetch user from the database
                 userRepository.findById(userUuid).ifPresent(user -> {
 
                     // Check if the user account is enabled

@@ -14,4 +14,8 @@ public record ApiError(
         return new ApiError(status, error, message, path, OffsetDateTime.now(ZoneOffset.UTC));
     }
 
+    public static ApiError of(int status, String error, String message, String path, boolean dateTime) {
+        return new ApiError(status, error, message, path, null );
+    }
+
 }
