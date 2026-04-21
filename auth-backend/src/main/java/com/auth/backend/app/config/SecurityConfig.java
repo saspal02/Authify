@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,14 +34,16 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers("/api/v1/auth/register").permitAll()
                                 .requestMatchers("/api/v1/auth/login").permitAll()
+                                .requestMatchers("/api/v1/auth/refresh").permitAll()
+                                .requestMatchers("/api/v1/auth/logout").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex ->
-                        ex.authenticationEntryPoint((request, response, authException) -> {
-                            authException.printStackTrace();
+                        ex.authenticationEntryPoint((request, response, e) -> {
+                           // e.printStackTrace();
                             response.setContentType("application/json");
                             response.setStatus(401);
-                            String message = authException.getMessage();
+                            String message = e.getMessage();
                             Map<String, String> errorMap = Map.of(
                                     "message", message,
                                     "statusCode", Integer.toString(401)
