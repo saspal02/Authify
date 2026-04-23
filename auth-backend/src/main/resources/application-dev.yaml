@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/auth_app
-    username: root
-    password: password
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
 
   jpa:
     hibernate:
@@ -17,18 +17,39 @@ spring:
 
   logging:
     level:
-      org:
-        springframework.security: DEBUG
+      org.springframework.security: DEBUG
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+              - openid
+          github:
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}
+            scope:
+              - user:email
+              - read:user
 
-security:
-  jwt:
-    secret: ${JWT_SECRET}
-    issuer: ${JWT_ISSUER:auth-backend}
-    access-ttl: ${JWT_ACCESS_TTL:3600}
-    refresh-ttl: ${JWT_REFRESH_TTL:86400}
-    refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
-    cookie-secure: ${JWT_COOKIE_SECURE:true}
-    cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
-    cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
-    cookie-domain: ${JWT_COOKIE_DOMAIN:localhost}
+jwt:
+  secret: ${JWT_SECRET}
+  issuer: ${JWT_ISSUER:auth-backend}
+  access-ttl: ${JWT_ACCESS_TTL:3600}
+  refresh-ttl: ${JWT_REFRESH_TTL:86400}
+  refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
+  cookie-secure: ${JWT_COOKIE_SECURE:true}
+  cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
+  cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
+  cookie-domain: ${JWT_COOKIE_DOMAIN:localhost}
+
+app:
+  auth:
+    frontend:
+      success-redirect: http://localhost:5173/auth/success
+      failure-redirect: http://localhost:5173/auth/failure

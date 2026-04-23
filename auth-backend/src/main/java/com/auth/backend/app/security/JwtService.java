@@ -27,10 +27,10 @@ public class JwtService {
     private final long refreshTtlSeconds;
     private final String issuer;
 
-    public JwtService(@Value("${security.jwt.secret}") String secret,
-                      @Value("${security.jwt.access-ttl}") long accessTtlSeconds,
-                      @Value("${security.jwt.refresh-ttl}") long refreshTtlSeconds,
-                      @Value("${security.jwt.issuer}") String issuer) {
+    public JwtService(@Value("${jwt.secret}") String secret,
+                      @Value("${jwt.access-ttl}") long accessTtlSeconds,
+                      @Value("${jwt.refresh-ttl}") long refreshTtlSeconds,
+                      @Value("${jwt.issuer}") String issuer) {
         if (secret == null || secret.length() < 64) {
             throw new IllegalArgumentException("Invalid JWT secret");
         }

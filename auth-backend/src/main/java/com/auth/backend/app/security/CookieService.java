@@ -19,11 +19,11 @@ public class CookieService {
 
 
     public CookieService(
-            @Value("${security.jwt.refresh-token-cookie-name}") String refreshTokenCookieName,
-            @Value("${security.jwt.cookie-http-only}") boolean cookieHttpOnly,
-            @Value("${security.jwt.cookie-secure}") boolean cookieSecure,
-            @Value("${security.jwt.cookie-domain}") String cookieDomain,
-            @Value("${security.jwt.cookie-same-site}") String cookieSameSite) {
+            @Value("${jwt.refresh-token-cookie-name}") String refreshTokenCookieName,
+            @Value("${jwt.cookie-http-only}") boolean cookieHttpOnly,
+            @Value("${jwt.cookie-secure}") boolean cookieSecure,
+            @Value("${jwt.cookie-domain}") String cookieDomain,
+            @Value("${jwt.cookie-same-site}") String cookieSameSite) {
         this.refreshTokenCookieName = refreshTokenCookieName;
         this.cookieHttpOnly = cookieHttpOnly;
         this.cookieSecure = cookieSecure;
