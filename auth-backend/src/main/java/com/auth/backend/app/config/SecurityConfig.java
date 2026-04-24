@@ -37,10 +37,7 @@ public class SecurityConfig {
                         sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/api/v1/auth/register").permitAll()
-                                .requestMatchers("/api/v1/auth/login").permitAll()
-                                .requestMatchers("/api/v1/auth/refresh").permitAll()
-                                .requestMatchers("/api/v1/auth/logout").permitAll()
+                                .requestMatchers(AppConstants.AUTH_PUBLIC_URL).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 ->
