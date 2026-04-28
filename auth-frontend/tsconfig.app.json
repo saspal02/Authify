@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
+    "ignoreDeprecations": "6.0", // Ignore deprecation warnings for TypeScript 6.0 features (baseUrl and paths)
 
     "baseUrl": ".",
     "paths": {
