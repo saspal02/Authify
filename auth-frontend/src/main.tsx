@@ -7,16 +7,28 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import SignUp from "./pages/SignUp.tsx";
 import Login from "./pages/Login.tsx";
 import About from "./pages/About.tsx";
+
 import RootLayout from "./pages/RootLayout.tsx";
+
+import Userlayout from "./pages/users/Userlayout.tsx";
+import Userhome from "./pages/users/Userhome.tsx";
+import Userprofile from "./pages/users/Userprofile.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<RootLayout />}>
+        {/* Public Routes */}
         <Route index element={<App />} />
         <Route path="about" element={<About />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
+
+        {/* Dashboard Routes */}
+        <Route path="dashboard" element={<Userlayout />}>
+          <Route index element={<Userhome />} />
+          <Route path="profile" element={<Userprofile />} />
+        </Route>
       </Route>
     </Routes>
   </BrowserRouter>,

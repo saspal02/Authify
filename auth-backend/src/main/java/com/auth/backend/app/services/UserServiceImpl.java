@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService{
 
         //role assigns to user for authorization
         User user = userMapper.mapUserDtoToUser(userDto);
+        user.setEnable(true);
         user.setProvider(userDto.getProvider()!= null ? userDto.getProvider() : Provider.LOCAL);
 
         User savedUser = userRepository.save(user);
@@ -59,7 +60,9 @@ public class UserServiceImpl implements UserService{
         if (userDto.getImage() != null ) existingUser.setImage(userDto.getImage());
         if (userDto.getProvider() != null ) existingUser.setProvider(userDto.getProvider());
         if (userDto.getPassword() != null ) existingUser.setPassword(userDto.getPassword());
-        existingUser.setEnable(userDto.isEnable());
+        if (userDto.getEnable() != null) {
+            existingUser.setEnable(userDto.getEnable());
+        }
         User updatedUser = userRepository.save(existingUser);
         return userMapper.mapUserToUserDto(updatedUser);
     }

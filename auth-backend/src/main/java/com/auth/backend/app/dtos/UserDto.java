@@ -25,7 +25,7 @@ public class UserDto {
 
     private String image;
 
-    private boolean enable = true;
+    private Boolean enable = true;
 
     private Instant createdAt = Instant.now();
 

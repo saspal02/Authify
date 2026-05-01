@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { motion } from "framer-motion";
@@ -33,14 +34,14 @@ export default function FuturisticAuthHome() {
           className="mt-10 flex gap-4"
         >
           <Button size="lg" className="rounded-2xl text-lg px-6">
-            Get Started
+            <NavLink to="/signup">Get Started</NavLink>
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="rounded-2xl text-lg px-6 border-border"
           >
-            Learn More
+            <NavLink to="/about">Learn More</NavLink>
           </Button>
         </motion.div>
       </section>
@@ -99,7 +100,7 @@ export default function FuturisticAuthHome() {
         </p>
 
         <Button size="lg" className="mt-8 px-8 text-lg rounded-2xl">
-          Create Account
+          <NavLink to="/signup">Create Account</NavLink>
         </Button>
       </section>
 

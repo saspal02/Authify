@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
-import { Mail, Lock, User } from "lucide-react";
+import { Mail, Lock, User, CheckCircle2Icon } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import type RegisterData from "@/models/RegisterData";
 import { registerUser } from "@/services/AuthService";
 import { useNavigate } from "react-router";
 import OAuth2Buttons from "@/components/OAuth2Buttons";
+import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Spinner } from "@/components/ui/spinner";
 
 function Signup() {
   const [data, setData] = useState<RegisterData>({
@@ -19,29 +21,21 @@ function Signup() {
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>(null);
 
   const navigate = useNavigate();
 
-  // text input, email, password, number , textarea
-  // handling form change
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target.name);
-    // console.log(event.target.value);
     setData((value) => ({
       ...value,
       [event.target.name]: event.target.value,
     }));
   };
 
-  // handling form submit
-  const handleFormSubmit = async (
-    event: React.SubmitEvent<HTMLFormElement>,
-  ) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(data);
 
-    //validations
+    // validations
     if (data.name.trim() === "") {
       toast.error("Name is required !");
       return;
@@ -57,21 +51,32 @@ function Signup() {
       return;
     }
 
-    //form submit for registrations
     try {
+      setLoading(true);
+      setError(null);
+
       const result = await registerUser(data);
       console.log(result);
-      toast.success("User register successfully...");
+
+      toast.success("User registered successfully...");
+
       setData({
         name: "",
         email: "",
         password: "",
       });
-      //navigate : login
+
       navigate("/login");
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error("Error in registering the user...");
+
+      setError(error);
+
+      toast.error(
+        error?.response?.data?.message || "Error in registering user...",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,6 +108,20 @@ function Signup() {
             >
               Join the next-generation authentication platform
             </motion.p>
+
+            {/* Error Section */}
+            {error && (
+              <div className="mt-6">
+                <Alert variant="destructive">
+                  <CheckCircle2Icon />
+                  <AlertTitle>
+                    {error?.response
+                      ? error?.response?.data?.message
+                      : error?.message}
+                  </AlertTitle>
+                </Alert>
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleFormSubmit} className="mt-8 space-y-6">
@@ -157,7 +176,20 @@ function Signup() {
                 </div>
               </div>
 
-              <Button className="w-full rounded-2xl text-lg">Sign Up</Button>
+              {/* Submit Button */}
+              <Button
+                disabled={loading}
+                className="w-full rounded-2xl text-lg cursor-pointer"
+              >
+                {loading ? (
+                  <>
+                    <Spinner />
+                    Please wait...
+                  </>
+                ) : (
+                  "Sign Up"
+                )}
+              </Button>
 
               {/* Divider */}
               <div className="flex items-center gap-4 my-4">

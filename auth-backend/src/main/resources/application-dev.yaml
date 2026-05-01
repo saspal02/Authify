@@ -1,6 +1,7 @@
 server:
   port: 8081
 
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/auth_app
@@ -49,7 +50,12 @@ jwt:
   cookie-domain: ${JWT_COOKIE_DOMAIN:localhost}
 
 app:
+  cors:
+    frontend-url: http://localhost:5173
   auth:
     frontend:
       success-redirect: http://localhost:5173/auth/success
       failure-redirect: http://localhost:5173/auth/failure
+
+
+
