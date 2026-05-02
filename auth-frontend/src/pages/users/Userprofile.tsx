@@ -119,7 +119,7 @@ function Userprofile() {
                 <Label htmlFor="enabled">Enabled</Label>
                 <Input
                   id="enabled"
-                  value={user?.enabled ? "Yes" : "No"}
+                  value={user?.enable ? "Yes" : "No"}
                   readOnly
                   className="rounded-xl"
                 />

@@ -67,9 +67,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                         .providerId(googleId)
                         .build();
 
-                user = userRepository
-                        .findByProviderAndProviderId(Provider.GOOGLE, googleId)
-                        .orElseGet(() -> userRepository.save(newUser));
+                user = userRepository.findByEmail(email).orElseGet(() -> userRepository.save(newUser));
             }
 
             case "github" -> {
@@ -90,9 +88,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                         .providerId(githubId)
                         .build();
 
-                user = userRepository
-                        .findByProviderAndProviderId(Provider.GITHUB, githubId)
-                        .orElseGet(() -> userRepository.save(newUser));
+                user = userRepository.findByEmail(email).orElseGet(() -> userRepository.save(newUser));
             }
 
 

@@ -12,18 +12,21 @@ function Navbar() {
   return (
     <nav className="py-5  dark:border-b border-gray-700 md:py-0 flex md:flex-row gap-4 md:gap-0 flex-col md:h-14 justify-around items-center    ">
       {/* brand */}
-      <div className="font-semibold items-center flex gap-2">
+      <NavLink
+        to="/"
+        className="font-semibold items-center flex gap-2 cursor-pointer hover:opacity-80 transition"
+      >
         <span>
           <Lock />
         </span>
         <span className="text-base tracking-tight">Authify</span>
-      </div>
+      </NavLink>
 
       <div className="flex gap-4 items-center">
         {checkLogin() ? (
           <>
             <NavLink to={"/dashboard/profile"}>{user?.name}</NavLink>
-
+            <NavLink to={"/dashboard"}>Dashboard</NavLink>
             <Button
               onClick={() => {
                 logout();

@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 function OAuth2Buttons() {
-  const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:8083";
+  const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:8081";
 
   return (
     <div className="space-y-3">

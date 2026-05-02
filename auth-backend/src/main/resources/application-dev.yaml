@@ -41,7 +41,7 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   issuer: ${JWT_ISSUER:auth-backend}
-  access-ttl: ${JWT_ACCESS_TTL:3600}
+  access-ttl: ${JWT_ACCESS_TTL:10}
   refresh-ttl: ${JWT_REFRESH_TTL:86400}
   refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
   cookie-secure: ${JWT_COOKIE_SECURE:true}
@@ -54,8 +54,8 @@ app:
     frontend-url: http://localhost:5173
   auth:
     frontend:
-      success-redirect: http://localhost:5173/auth/success
-      failure-redirect: http://localhost:5173/auth/failure
+      success-redirect: http://localhost:5173/oauth/success
+      failure-redirect: http://localhost:5173/oauth/failure
 
 
 

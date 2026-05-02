@@ -29,6 +29,8 @@ createRoot(document.getElementById("root")!).render(
           <Route index element={<Userhome />} />
           <Route path="profile" element={<Userprofile />} />
         </Route>
+        <Route path="oauth/success" element={<div>OAuth Success</div>} />
+        <Route path="oauth/failure" element={<div>OAuth Failure</div>} />
       </Route>
     </Routes>
   </BrowserRouter>,
