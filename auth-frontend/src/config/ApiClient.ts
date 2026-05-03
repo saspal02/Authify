@@ -1,7 +1,6 @@
 import useAuth from "@/auth/store";
 import { refreshToken } from "@/services/AuthService";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8081/api/v1",
@@ -46,8 +45,7 @@ apiClient.interceptors.response.use(
       //message:
 
       if (error.response && error.response.data)
-        toast.error(error.response.data?.message || "An error occurred");
-      console.error("API Error:", error.response.data);
+        console.error("API Error:", error.response.data);
       console.error("Full error:", error);
 
       return Promise.reject(error);

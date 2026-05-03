@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -41,7 +41,7 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   issuer: ${JWT_ISSUER:auth-backend}
-  access-ttl: ${JWT_ACCESS_TTL:10}
+  access-ttl: ${JWT_ACCESS_TTL:600}
   refresh-ttl: ${JWT_REFRESH_TTL:86400}
   refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
   cookie-secure: ${JWT_COOKIE_SECURE:true}

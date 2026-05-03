@@ -66,7 +66,7 @@ function Login() {
     } catch (error: any) {
       console.log(error);
 
-      toast.error("Error !!");
+      toast.error("Error!");
       if (error?.status == 400) {
         setError(error);
       } else {

@@ -1,51 +1,62 @@
 import useAuth from "@/auth/store";
 import { Spinner } from "@/components/ui/spinner";
 import { refreshToken } from "@/services/AuthService";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import OAuthFailure from "./OAuthFailure";
 
 function OAuthSuccess() {
-  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const hasRun = useRef(false);
 
   const changeLocalLoginData = useAuth((state) => state.changeLocalLoginData);
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getAccessToken() {
-      if (!isRefreshing) {
-        //refresh token ki api call
-        setIsRefreshing(true);
-        try {
-          const responseLoginData = await refreshToken();
-          console.log(responseLoginData);
-          //login:
-          changeLocalLoginData(
-            responseLoginData.accessToken,
-            responseLoginData.user,
-            true,
-          );
+    if (hasRun.current) return;
+    hasRun.current = true;
 
-          toast.success("Login success !");
-          navigate("/dashboard");
-        } catch (error) {
-          toast.error("Error while login!");
-          console.log(error);
-        } finally {
-          setIsRefreshing(false);
-        }
+    async function getAccessToken() {
+      try {
+        const responseLoginData = await refreshToken();
+
+        changeLocalLoginData(
+          responseLoginData.accessToken,
+          responseLoginData.user,
+          true,
+        );
+
+        toast.success("Login success!");
+        navigate("/dashboard", { replace: true });
+      } catch (err) {
+        console.log(err);
+        toast.error("Authentication failed");
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
 
     getAccessToken();
   }, []);
 
-  return (
-    <div className="p-10 flex flex-col gap-3 justify-center items-center">
-      <Spinner />
-      <h1 className="text-2xl font-semibold">Please wait....</h1>
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col gap-3 justify-center items-center">
+        <Spinner />
+        <h1 className="text-2xl font-semibold">Please wait....</h1>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <OAuthFailure />;
+  }
+
+  return null;
 }
 
 export default OAuthSuccess;
