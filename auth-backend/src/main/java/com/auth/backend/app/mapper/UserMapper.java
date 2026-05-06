@@ -1,7 +1,7 @@
 package com.auth.backend.app.mapper;
 
-import com.auth.backend.app.dtos.UserDto;
-import com.auth.backend.app.entities.User;
+import com.auth.backend.app.auth.payload.UserDto;
+import com.auth.backend.app.auth.entities.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

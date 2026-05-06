@@ -1,7 +1,7 @@
 package com.auth.backend.app.mapper;
 
-import com.auth.backend.app.dtos.RoleDto;
-import com.auth.backend.app.entities.Role;
+import com.auth.backend.app.auth.payload.RoleDto;
+import com.auth.backend.app.auth.entities.Role;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = RoleMapper.class)

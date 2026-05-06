@@ -1,0 +1,16 @@
+package com.auth.backend.app.auth.repositories;
+
+import com.auth.backend.app.auth.entities.Provider;
+import com.auth.backend.app.auth.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface UserRepository extends JpaRepository<User, UUID> {
+
+    Optional<User> findByEmail(String email);
+    boolean existsByEmail(String email);
+
+    Optional<User> findByEmailAndProvider(String email, Provider provider);
+}
